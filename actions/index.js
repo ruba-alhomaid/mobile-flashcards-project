@@ -10,10 +10,10 @@ export function receiveDecks (decks) {
     }
 }
 
-export function getDeck (id) {
+export function getDeck (title) {
     return {
         type: GET_DECK,
-        id
+        title
     }
 }
 
