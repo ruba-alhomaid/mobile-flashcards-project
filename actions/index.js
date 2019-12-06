@@ -10,11 +10,18 @@ export function receiveDecks () {
         getDecks()
             .then((decks) => 
             dispatch({
-            type: RECEIVE_DECKS,
-            decks
-        }))
-    }
-}
+                type: RECEIVE_DECKS,
+                decks
+            }))
+}}
+
+// export function receiveDecksWithDispatch () {
+//     return (dispatch) => {
+//         getDecks()
+//             .then((decks) => 
+//             dispatch(receiveDecks(decks)))
+//     }
+// }
 
 export function getDeck (title) {
     return {

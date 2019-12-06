@@ -1,6 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import ReduxThunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import { createAppContainer } from 'react-navigation'
@@ -26,7 +27,7 @@ const MainNavigator = createAppContainer(createBottomTabNavigator({
 
 export default function App() {
   return (
-    <Provider store={createStore(reducer)}>
+    <Provider store={createStore(reducer, applyMiddleware(ReduxThunk))}>
       <View style={{flex: 1}}>
         <View style={{height: 20}}/>
         <MainNavigator />
