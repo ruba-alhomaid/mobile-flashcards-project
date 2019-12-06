@@ -8,7 +8,7 @@ function decks ( state={}, action ) {
                 ...action.decks
             }
         case GET_DECK:
-            return action.id
+            return action.title
             
         case ADD_DECK:
             return {
