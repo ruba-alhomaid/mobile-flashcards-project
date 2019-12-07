@@ -12,7 +12,7 @@ import NewDeck from './components/NewDeck'
 import DeckView from './components/DeckView'
 import AddCard from './components/AddCard'
 import Quiz from './components/Quiz'
-import { setLocalNotification } from './utlis/helpers'
+import { setLocalNotification } from './utils/helpers'
 
 const DeckStack = createStackNavigator({
   DeckList: DeckList,

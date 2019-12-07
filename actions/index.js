@@ -1,4 +1,4 @@
-import { getDecks } from '../utlis/api'
+import { getDecks } from '../utils/api'
 
 export const RECEIVE_DECKS = 'RECEIVE_DECKS'
 export const GET_DECK = 'GET_DECK'

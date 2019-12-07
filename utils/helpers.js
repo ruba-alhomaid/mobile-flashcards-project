@@ -1,5 +1,6 @@
 import { AsyncStorage } from 'react-native'
-import { Notifications, Permissions } from 'expo'
+import { Notifications } from 'expo'
+import * as Permissions from 'expo-permissions'
 
 export const NOTIFICATION_KEY = 'MobileFlashcards:notifications'
 
@@ -10,8 +11,8 @@ export function clearLocalNotification () {
 
 function createNotification () {
     return {
-        title: "Study Hard!",
-        body: "👋 don't forget to study!",
+        title: "Take Quiz!",
+        body: "👋 don't forget to take a quiz today!",
         ios: {
             sound: true
         },
