@@ -6,27 +6,18 @@ import { AppLoading } from 'expo'
 import Deck from './Deck'
 
 class DeckList extends Component {
-    state = {
-        ready: false
-      }
 
     componentDidMount() {
-        const { dispatch } = this.props
-        
-        dispatch(receiveDecks())
-        .then(() => this.setState(() => ({ready: true})))
-        console.log('hi')
+        this.props.dispatch(receiveDecks())
     }
 
     render() {
-        const { decks } = this.props.decks
-        const { ready } = this.state
-
-        if ( ready === false ) {
+        const { decks } = this.props
+        
+        if ( Object.entries(decks).length === 0 ) {
             return <AppLoading />
           }
-        // console.log(decks)
-        // console.log(decks.questions.length)
+        
         return(
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <Text>Deck List</Text>
@@ -39,13 +30,14 @@ class DeckList extends Component {
                                 {entryId: item.key}
                             )}>
                             <Deck 
-                                deckName={item.title} 
-                                cardsCount={item.questions.length !== 0 
-                                                ? item.questions.length + 'Cards'
+                                deckName={item.item.title} 
+                                cardsCount={item.item.questions.length !== 0 
+                                                ? item.item.questions.length + 'Cards'
                                                 : 'No Cards'
-                                            }/>
+                                            }
+                            />
                         </TouchableOpacity>
-                        }
+                    }
                 />
             </View>
         )
@@ -53,7 +45,6 @@ class DeckList extends Component {
 }
 
 function mapStateToProps (decks) {
-    console.log(decks)
     return {
         decks
     }
