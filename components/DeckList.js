@@ -6,7 +6,6 @@ import { AppLoading } from 'expo'
 import Deck from './Deck'
 
 class DeckList extends Component {
-
     componentDidMount() {
         this.props.dispatch(receiveDecks())
     }
@@ -27,7 +26,7 @@ class DeckList extends Component {
                         <TouchableOpacity
                             onPress={() => this.props.navigation.navigate(
                                 'DeckView',
-                                {entryId: item.key}
+                                {deck: item.item}
                             )}>
                             <Deck 
                                 deckName={item.item.title} 
