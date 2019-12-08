@@ -44,7 +44,7 @@ class NewDeck extends Component {
 
         SaveDeckTitle(title)
 
-        //to deck view
+        this.props.navigation.navigate('DeckList')
     }
 
     render() {

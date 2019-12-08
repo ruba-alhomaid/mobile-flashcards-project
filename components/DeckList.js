@@ -30,7 +30,7 @@ class DeckList extends Component {
                             )}>
                             <Deck 
                                 deckName={item.item.title} 
-                                cardsCount={item.item.questions.length !== 0 
+                                cardsCount={item.item.questions.length !== 0 || item.item.questions.length !== 'undefined'
                                                 ? item.item.questions.length + 'Cards'
                                                 : 'No Cards'
                                             }
