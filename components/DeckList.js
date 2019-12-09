@@ -12,7 +12,7 @@ class DeckList extends Component {
 
     render() {
         const { decks } = this.props
-        
+        console.log(decks)
         if ( Object.entries(decks).length === 0 ) {
             return <AppLoading />
           }

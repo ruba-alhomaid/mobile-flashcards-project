@@ -31,7 +31,7 @@ class AddCard extends Component {
     submit = () => {
         const card = this.state
         const title = this.props.navigation.state.params.title
-        console.log(card, title)
+        
         this.props.dispatch(addCard(title, card))
 
         this.setState(() => ({

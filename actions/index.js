@@ -15,14 +15,6 @@ export function receiveDecks () {
             }))
 }}
 
-// export function receiveDecksWithDispatch () {
-//     return (dispatch) => {
-//         getDecks()
-//             .then((decks) => 
-//             dispatch(receiveDecks(decks)))
-//     }
-// }
-
 export function getDeck (title) {
     return {
         type: GET_DECK,

@@ -8,11 +8,11 @@ import {
     KeyboardAvoidingView,
     TouchableOpacity
  } from 'react-native'
- import { addDeck } from '../actions/index'
- import { SaveDeckTitle } from '../utils/api'
- import { white, purple } from '../utils/colors'
+import { addDeck } from '../actions/index'
+import { SaveDeckTitle } from '../utils/api'
+import { white, purple } from '../utils/colors'
 
- function SubmitBtn ({ onPress }) {
+function SubmitBtn ({ onPress }) {
     return(
         <TouchableOpacity 
             style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}

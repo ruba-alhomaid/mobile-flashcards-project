@@ -16,7 +16,19 @@ class Quiz extends Component {
         let card = cards[currentQuestion]
         let totalQuestions = cards.length
 
-        if ( currentQuestion >= totalQuestions )
+        if ( totalQuestions === 0 )
+            return (
+                <View>
+                    <Text>There are no cards!</Text>
+                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                        <Text>Back to Deck</Text>
+                    </TouchableOpacity>
+                </View>
+            )
+
+        if ( currentQuestion >= totalQuestions ) {
+            { clearLocalNotification()
+                .then(setLocalNotification()) }
             return (
                 <View>
                     <Text>You get {correct} / {totalQuestions} correct</Text>
@@ -26,14 +38,11 @@ class Quiz extends Component {
                         <Text>Restart Quiz</Text>
                     </TouchableOpacity>
 
-                    { clearLocalNotification()
-                        .then(setLocalNotification()) }
-
-                    <TouchableOpacity onPress={this.props.navigation.goBack()}>
+                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                         <Text>Back to Deck</Text>
                     </TouchableOpacity>
                 </View>
-            )
+            )}
 
         return(
             <View>
