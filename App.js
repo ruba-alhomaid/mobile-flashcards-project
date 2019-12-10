@@ -13,6 +13,8 @@ import DeckView from './components/DeckView'
 import AddCard from './components/AddCard'
 import Quiz from './components/Quiz'
 import { setLocalNotification } from './utils/helpers'
+import { Foundation, Entypo } from '@expo/vector-icons'
+import { shinGreen } from './utils/colors'
 
 const DeckStack = createStackNavigator({
   DeckList: DeckList,
@@ -22,8 +24,26 @@ const DeckStack = createStackNavigator({
 })
 
 const MainNavigator = createAppContainer(createBottomTabNavigator({
-  DeckList: DeckStack,
-  NewDeck: NewDeck,
+  DeckList: {
+    screen: DeckStack,
+    navigationOptions: {
+      tabBarLabel: 'Deck List',
+      activeTintColor: '#F8F8F8',
+      inactiveTintColor: '#586589',
+      style: { backgroundColor: shinGreen },
+      tabBarIcon: ({ tintColor }) => <Foundation name='list' size={30} color={tintColor} />
+    },
+  },
+  NewDeck: {
+    screen: NewDeck,
+    navigationOptions: {
+      tabBarLabel: 'New Deck',
+      activeTintColor: '#F8F8F8',
+      inactiveTintColor: '#586589',
+      style: { backgroundColor: shinGreen },
+      tabBarIcon: ({ tintColor }) => <Entypo name='add-to-list' size={30} color={tintColor} />
+    },
+  },
 }))
 
 export default class App extends React.Component {
@@ -35,7 +55,7 @@ export default class App extends React.Component {
     return (
       <Provider store={createStore(reducer, applyMiddleware(ReduxThunk))}>
         <View style={{flex: 1}}>
-          <View style={{height: 20}}/>
+          <View style={{height: 30}}/>
           <MainNavigator />
         </View>
       </Provider>

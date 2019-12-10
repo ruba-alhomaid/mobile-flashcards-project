@@ -10,7 +10,7 @@ import {
  } from 'react-native'
 import { addCard } from '../actions/index'
 import { addCardToDeck } from '../utils/api'
-import { white, purple } from '../utils/colors'
+import { white, green, lightGray } from '../utils/colors'
 
 function SubmitBtn ({ onPress }) {
     return(
@@ -48,15 +48,16 @@ class AddCard extends Component {
         const { question, answer } = this.state
 
         return(
-            <KeyboardAvoidingView behavior='padding' style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <KeyboardAvoidingView behavior='padding' style={styles.container}>
+                <Text style={styles.title}>Add the question and it's answer:</Text>
                 <TextInput
-                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                    style={styles.input}
                     value={question}
                     onChangeText={question => this.setState({ question })}
                     placeholder="Enter the question.."
                 />
                 <TextInput
-                    style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                    style={styles.input}
                     value={answer}
                     onChangeText={answer => this.setState({ answer })}
                     placeholder="Enter the answer.."
@@ -70,40 +71,54 @@ class AddCard extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
-        backgroundColor: white
+        paddingTop: 20,
+        paddingBottom: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: lightGray
+    },
+    input: { 
+        height: 40, 
+        borderRadius: 7,
+        borderColor: 'gray', 
+        borderWidth: 1,
+        alignSelf: 'stretch',
+        padding: 10,
+        margin: 20
     },
     iosSubmitBtn: {
-        backgroundColor: purple,
+        backgroundColor: green,
         padding: 10,
         borderRadius: 7,
         height: 45,
-        marginLeft: 40,
-        marginRight: 40,
+        alignSelf: 'stretch',
+        justifyContent: 'center',
+        margin: 20
     },
     AndroidSubmitBtn: {
-        backgroundColor: purple,
+        backgroundColor: green,
         padding: 10,
         paddingLeft: 30,
         paddingRight: 30,
         height: 45,
         borderRadius: 2,
-        alignSelf: 'flex-end',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignSelf: 'stretch',
+        margin: 20
     },
     submitBtnText: {
         color: white,
         fontSize: 22,
-        textAlign: 'center'
+        textAlign: 'center',
     },
-    center: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginLeft: 30,
-        marginRight: 30,
-      },
+    title: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        margin: 30,
+        marginRight: 40,
+        marginRight: 40
+    }
 })
 
 export default connect()(AddCard)

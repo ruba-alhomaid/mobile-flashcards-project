@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, TouchableOpacity, FlatList } from 'react-native'
+import { View, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
 import { receiveDecks } from '../actions/index'
 import { AppLoading } from 'expo'
 import Deck from './Deck'
+import { lightGray } from '../utils/colors'
 
 class DeckList extends Component {
     componentDidMount() {
@@ -12,14 +13,13 @@ class DeckList extends Component {
 
     render() {
         const { decks } = this.props
-        console.log(decks)
+
         if ( Object.entries(decks).length === 0 ) {
             return <AppLoading />
           }
         
         return(
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Deck List</Text>
+            <View style={styles.container}>
                 <FlatList
                     data={Object.values(decks)}
                     renderItem={(item) =>
@@ -31,7 +31,7 @@ class DeckList extends Component {
                             <Deck 
                                 deckName={item.item.title} 
                                 cardsCount={item.item.questions.length !== 0 || item.item.questions.length !== 'undefined'
-                                                ? item.item.questions.length + 'Cards'
+                                                ? item.item.questions.length + ' Cards'
                                                 : 'No Cards'
                                             }
                             />
@@ -48,5 +48,17 @@ function mapStateToProps (decks) {
         decks
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'row',
+        paddingTop: 20,
+        paddingBottom: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: lightGray
+    },
+})
 
 export default connect(mapStateToProps)(DeckList)

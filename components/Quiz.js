@@ -1,7 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Platform, StyleSheet, } from 'react-native'
 import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
+import { white, green, gray, lightGray, red, shinGreen } from '../utils/colors'
+
+function SubmitBtn ({ onPress, title }) {
+    return(
+        <View style={{justifyContent: 'flex-end'}}>
+            <TouchableOpacity 
+                style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
+                onPress={onPress}>
+                    <Text style={styles.submitBtnText}>{title}</Text>
+            </TouchableOpacity>
+        </View>
+    )
+}
 
 class Quiz extends Component {
     state = {
@@ -19,10 +32,10 @@ class Quiz extends Component {
         if ( totalQuestions === 0 )
             return (
                 <View>
-                    <Text>There are no cards!</Text>
-                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                        <Text>Back to Deck</Text>
-                    </TouchableOpacity>
+                    <Text style={[styles.text , {marginTop: 200}]}>There are no cards!</Text>
+                    <SubmitBtn 
+                        title="Back to Deck"
+                        onPress={() => this.props.navigation.goBack()}/>
                 </View>
             )
 
@@ -31,46 +44,51 @@ class Quiz extends Component {
                 .then(setLocalNotification()) }
             return (
                 <View>
-                    <Text>You get {correct} / {totalQuestions} correct</Text>
+                    <Text style={[styles.text ,{marginBottom: 10},{marginTop: 90}]}>You get</Text>
+                    <Text style={[styles.title ,{marginTop: 10}, {marginBottom: 10}]}>{correct} / {totalQuestions}</Text>
+                    <Text style={styles.text}>correct</Text>
 
-                    <TouchableOpacity 
-                        onPress={() => this.setState({correct: 0, incorrect: 0, currentQuestion: 0, showAnswer: false})}>
-                        <Text>Restart Quiz</Text>
-                    </TouchableOpacity>
+                    <SubmitBtn 
+                        title="Restart Quiz"
+                        onPress={() => this.setState({correct: 0, incorrect: 0, currentQuestion: 0, showAnswer: false})}/>
 
-                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                        <Text>Back to Deck</Text>
-                    </TouchableOpacity>
+                    <SubmitBtn
+                        title="Back to Deck"
+                        onPress={() => this.props.navigation.goBack()}/>
                 </View>
             )}
 
         return(
             <View>
                 <View>
-                    <Text>{currentQuestion + 1} / {totalQuestions}</Text>
-                    <Text>{title}</Text>
+                    <Text style={{fontSize:20, color:gray, textAlign:'left', margin:10}}>{currentQuestion + 1} / {totalQuestions}</Text>
+                    <Text style={styles.title}>{title}</Text>
                     { showAnswer    
-                            ? <Text>{ card.answer }</Text>
-                            : <Text>{ card.question }</Text> }
+                            ? <Text style={styles.text}>{ card.answer }</Text>
+                            : <Text style={styles.text}>{ card.question }</Text> }
                 </View>
 
                 <TouchableOpacity onPress={() => this.setState({ showAnswer: !showAnswer})}>
                     <View>
                     { showAnswer    
-                            ? <Text>Show Question</Text>
-                            : <Text>Show Answer</Text> }
+                            ? <Text style={styles.smallText}>Show Question</Text>
+                            : <Text style={styles.smallText}>Show Answer</Text> }
                     </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity 
-                    onPress={() => this.setState({ correct: correct+1, currentQuestion: currentQuestion+1, showAnswer: false})}> 
-                    <Text>Correct</Text>
-                </TouchableOpacity>
+                <View style={{bottom: 0, justifyContent: 'flex-end'}}>
+                    <TouchableOpacity 
+                        style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn , {backgroundColor: shinGreen}]}
+                        onPress={() => this.setState({ correct: correct+1, currentQuestion: currentQuestion+1, showAnswer: false})}>
+                            <Text style={styles.submitBtnText}>Correct</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity 
-                    onPress={() => this.setState({ incorrect: incorrect+1, currentQuestion: currentQuestion+1, showAnswer: false})}> 
-                    <Text>Incorrect</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity 
+                        style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn , {backgroundColor: red}]}
+                        onPress={() => this.setState({ incorrect: incorrect+1, currentQuestion: currentQuestion+1, showAnswer: false})}>
+                            <Text style={styles.submitBtnText}>Incorrect</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         )
     }
@@ -85,5 +103,64 @@ function mapStateToProps (decks, props) {
         cards
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingTop: 20,
+        paddingBottom: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: lightGray
+    },
+    iosSubmitBtn: {
+        backgroundColor: green,
+        padding: 10,
+        borderRadius: 7,
+        height: 45,
+        alignSelf: 'stretch',
+        justifyContent: 'center',
+        margin: 20,
+    },
+    AndroidSubmitBtn: {
+        backgroundColor: green,
+        padding: 10,
+        paddingLeft: 30,
+        paddingRight: 30,
+        height: 45,
+        borderRadius: 2,
+        justifyContent: 'center',
+        alignSelf: 'stretch',
+        margin: 20
+    },
+    submitBtnText: {
+        color: white,
+        fontSize: 22,
+        textAlign: 'center',
+    },
+    title: {
+        fontSize: 40,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        margin: 20,
+        marginTop: 70
+    },
+    text: {
+        fontSize: 30, 
+        color: gray,
+        textAlign: 'center',
+        fontWeight: '300',
+        margin: 10,
+        marginBottom:30
+    },
+    smallText: {
+        fontSize: 20, 
+        color: gray,
+        textAlign: 'center',
+        fontWeight: '300',
+        margin: 10,
+        marginBottom:30
+    }
+})
 
 export default connect(mapStateToProps)(Quiz)
