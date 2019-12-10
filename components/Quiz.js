@@ -31,7 +31,7 @@ class Quiz extends Component {
 
         if ( totalQuestions === 0 )
             return (
-                <View>
+                <View style={{ flex: 1, backgroundColor: lightGray }}>
                     <Text style={[styles.text , {marginTop: 200}]}>There are no cards!</Text>
                     <SubmitBtn 
                         title="Back to Deck"
@@ -43,7 +43,7 @@ class Quiz extends Component {
             { clearLocalNotification()
                 .then(setLocalNotification()) }
             return (
-                <View>
+                <View style={{ flex: 1, backgroundColor: lightGray }}>
                     <Text style={[styles.text ,{marginBottom: 10},{marginTop: 90}]}>You get</Text>
                     <Text style={[styles.title ,{marginTop: 10}, {marginBottom: 10}]}>{correct} / {totalQuestions}</Text>
                     <Text style={styles.text}>correct</Text>
@@ -59,7 +59,7 @@ class Quiz extends Component {
             )}
 
         return(
-            <View>
+            <View style={{ flex: 1, backgroundColor: lightGray }}>
                 <View>
                     <Text style={{fontSize:20, color:gray, textAlign:'left', margin:10}}>{currentQuestion + 1} / {totalQuestions}</Text>
                     <Text style={styles.title}>{title}</Text>
@@ -105,14 +105,6 @@ function mapStateToProps (decks, props) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 20,
-        paddingBottom: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: lightGray
-    },
     iosSubmitBtn: {
         backgroundColor: green,
         padding: 10,
