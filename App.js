@@ -14,7 +14,7 @@ import AddCard from './components/AddCard'
 import Quiz from './components/Quiz'
 import { setLocalNotification } from './utils/helpers'
 import { Foundation, Entypo } from '@expo/vector-icons'
-import { shinGreen } from './utils/colors'
+import { green, white } from './utils/colors'
 
 const DeckStack = createStackNavigator({
   DeckList: DeckList,
@@ -28,9 +28,6 @@ const MainNavigator = createAppContainer(createBottomTabNavigator({
     screen: DeckStack,
     navigationOptions: {
       tabBarLabel: 'Deck List',
-      activeTintColor: '#F8F8F8',
-      inactiveTintColor: '#586589',
-      style: { backgroundColor: shinGreen },
       tabBarIcon: ({ tintColor }) => <Foundation name='list' size={30} color={tintColor} />
     },
   },
@@ -38,12 +35,18 @@ const MainNavigator = createAppContainer(createBottomTabNavigator({
     screen: NewDeck,
     navigationOptions: {
       tabBarLabel: 'New Deck',
-      activeTintColor: '#F8F8F8',
-      inactiveTintColor: '#586589',
-      style: { backgroundColor: shinGreen },
       tabBarIcon: ({ tintColor }) => <Entypo name='add-to-list' size={30} color={tintColor} />
     },
-  },
+  }},
+  { 
+  navigationOptions: {
+      header: {
+        style: { shadowColor: 'transparent' },
+      },
+      activeTintColor: white,
+      inactiveTintColor: '#586589',
+      style: { paddingVertical: 10, backgroundColor: green },
+  }
 }))
 
 export default class App extends React.Component {

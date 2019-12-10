@@ -37,7 +37,6 @@ class NewDeck extends Component {
         const title = this.state.input
 
         this.props.dispatch(addDeck(title))
-        const newDeck = this.props.dispatch(getDeck(title))
 
         this.setState(() => ({
             input: ''
@@ -45,7 +44,7 @@ class NewDeck extends Component {
 
         SaveDeckTitle(title)
 
-        this.props.navigation.navigate('DeckView',{deck: newDeck})
+        this.props.navigation.navigate('DeckList')
     }
 
     render() {
